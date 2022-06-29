@@ -5,32 +5,30 @@ import MailList from "../../components/mailList/MailList";
 import Footer from "../../components/footer/Footer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {faCircleArrowLeft,faCircleArrowRight,faCircleXmark,faLocationDot} from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { useLocation } from "react-router-dom";
+import useFetch from "../../Hooks/useFetch.js";
+import { SearchContext } from "../../context/SearchContext.js";
 
 const Hotel = () => {
+  const location = useLocation(); //gives url of the sites or current path of webpage
+  const id= location.pathname.split("/")[2];
   const [slideNumber, setSlideNumber] = useState(0);
   const [open, setOpen] = useState(false);
 
-  const photos = [
-    {
-      src: "https://images.hindustantimes.com/rf/image_size_960x540/HT/p2/2018/12/15/Pictures/_9f2b6346-ffd3-11e8-9457-b1b429387a4e.jpg",
-    },
-    {
-      src: "https://media-cdn.tripadvisor.com/media/photo-s/03/a5/39/d6/the-taj-mahal-palace.jpg"
-    },
-    {
-      src: "https://th.bing.com/th/id/R.97f99cf124891310a1cd1912aaaa9b39?rik=8HWOgRyHeSVzwg&riu=http%3a%2f%2fwww.extravaganzi.com%2fwp-content%2fuploads%2f2013%2f09%2fEstate-at-Barnaby-Road2.jpg&ehk=oY7ZeDyJ%2bOBdLrcIbyT1fKZN7rvLMql3DmZZTR0%2fjOQ%3d&risl=&pid=ImgRaw&r=0",
-    },
-    {
-      src: "https://th.bing.com/th/id/R.0184adef35237c16743d3982e68b66d2?rik=QzT%2bVNC6%2bb1beA&riu=http%3a%2f%2fwww.edenluxurytravel.co.uk%2fEden+Collection+Images%2fOneandOnly%2fNov+15%2fPalace.jpg&ehk=BR3r2rJJDCiiqEksUdniYWpNzJBoe2L9EPh%2fEZt6bUE%3d&risl=&pid=ImgRaw&r=0",
-    },
-    {
-      src: "https://th.bing.com/th/id/R.7959b89df561ac84a35dda1d6fdf5c8f?rik=nDPcKeISDw%2fUqg&riu=http%3a%2f%2fwww.piersland.co.uk%2fimages_%2fhoneymoon-suite-image-2-4f55.jpg-sizer-850x850.jpg&ehk=vabozYrOrcXjvinmz20nrVGaQXlPfhRJDzUYT%2fvoBmE%3d&risl=&pid=ImgRaw&r=0"
-    },
-    {
-      src: "https://i.pinimg.com/originals/a9/11/c7/a911c740bd391ed11f5e5c7fbea16df9.jpg",
-    },
-  ];
+  const {data,loading,error} = useFetch(`http://localhost:8800/api/hotels/find/${id}`);
+
+  const { dates,options } = useContext(SearchContext);
+  console.log(dates);
+
+  const MILLISECONDS_PER_DAY = 1000 * 60 * 60 * 24;
+  function dayDifference(date1, date2) {
+    const timeDiff = Math.abs(date2.getTime() - date1.getTime());
+    const diffDays = Math.ceil(timeDiff / MILLISECONDS_PER_DAY);
+    return diffDays;
+  }
+
+  const days = dayDifference(dates[0].startDate,dates[0].endDate);
 
   const handleOpen = (i) => {
     setSlideNumber(i);
@@ -53,7 +51,9 @@ const Hotel = () => {
     <div>
       <Navbar />
       <Header type="list" />
-      <div className="hotelContainer">
+      { loading ? ("Loading Please Wait!") : (
+        <>
+        <div className="hotelContainer">
         {open && (
           <div className="slider">
             <FontAwesomeIcon
@@ -67,7 +67,7 @@ const Hotel = () => {
               onClick={() => handleMove("l")}
             />
             <div className="sliderWrapper">
-              <img src={photos[slideNumber].src} alt="" className="sliderImg" />
+              <img src={data.photos[slideNumber]} alt="" className="sliderImg" />
             </div>
             <FontAwesomeIcon
               icon={faCircleArrowRight}
@@ -78,23 +78,23 @@ const Hotel = () => {
         )}
         <div className="hotelWrapper">
           <button className="bookNow">Reserve or Book Now!</button>
-          <h1 className="hotelTitle">The Taj Mahal Tower Mumbai</h1>
+          <h1 className="hotelTitle">{data.name}</h1>
           <div className="hotelAddress">
             <FontAwesomeIcon icon={faLocationDot} />
-            <span>Apollo Bunder, Colaba, 400001 Mumbai, India </span>
+            <span>{data.address} </span>
           </div>
           <span className="hotelDistance">
-            Excellent location – 500m from center
+          Excellent location – {data.distance}m from center
           </span>
           <span className="hotelPriceHighlight">
-            Book a stay over Rs.11000 at this property and get a free airport taxi
+            Book a stay over Rs.{data.cheapestPrice} at this property and get a free airport taxi
           </span>
           <div className="hotelImages">
-            {photos.map((photo, i) => (
+            {data.photos?.map((photo, i) => (
               <div className="hotelImgWrapper" key={i}>
                 <img
                   onClick={() => handleOpen(i)}
-                  src={photo.src}
+                  src={photo}
                   alt=""
                   className="hotelImg"
                 />
@@ -103,26 +103,19 @@ const Hotel = () => {
           </div>
           <div className="hotelDetails">
             <div className="hotelDetailsTexts">
-              <h1 className="hotelTitle">Stay in the heart of City</h1>
+              <h1 className="hotelTitle">{data.title}</h1>
               <p className="hotelDesc">
-              Built in 1973, the iconic The Taj Mahal Tower Mumbai stands majestically across from the Gateway of India,
-              overlooking the Arabian Sea. The Tower stands in harmonious contrast to The Taj Mahal Palace with its 
-              arched balconies and newly refurbished rooms. Sprawling over 2.6 acres, this luxurious hotel features 10
-              restaurants and a variety of traditional Indian therapies at Jiva Spa. <br/>
-              Guests are spoiled for choice in dining options – the famous Wasabi by Morimoto offers innovative Japanese cuisine,
-              and other gourmet highlights include the Golden Dragon Chinese Restaurant and the poolside Aquarius Lounge.<br/>
-              Stylishly designed, the rooms offer amazing sea, city or pool views. Each room includes a 32-inch flat-screen TV,
-              a well-stocked mini-bar, free WiFi and a luxurious bathroom.
+                {data.desc}
               </p>
             </div>
             <div className="hotelDetailsPrice">
-              <h1>Perfect for a 9-night stay!</h1>
+              <h1>Perfect for a {days}-night stay!</h1>
               <span>
                 Located in the real heart of Krakow, this property has an
                 excellent location score of 9.8!
               </span>
               <h2>
-                <b>Rs. 11000</b> (9 nights)
+                <b>Rs. {days*data.cheapestPrice*options.room}</b> ({days} nights)
               </h2>
               <button>Reserve or Book Now!</button>
             </div>
@@ -131,6 +124,8 @@ const Hotel = () => {
         <MailList />
         <Footer />
       </div>
+      </>
+      )}
     </div>
   );
 };
