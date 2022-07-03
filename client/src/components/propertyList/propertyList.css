@@ -8,10 +8,10 @@
   
 .pListItem{
     flex:1;
-    border-radius: 10px;
     overflow: hidden;
     cursor: pointer;
     padding: 5px;
+    border-bottom: rgb(16, 16, 151) solid 2px;
 }
 
 .pListItem:hover{
@@ -19,7 +19,8 @@
     border-radius: 10px;
     overflow: hidden;
     cursor: pointer;
-    background-color: #4573b4;
+    background: rgb(34,193,195);
+    background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(62,47,93,1) 52%);
     padding: 5px;
     color: white;
     border-radius: 5px;

@@ -2,6 +2,7 @@ import "./footer.css";
 
 const Footer = () => {
   return (
+    <>
     <div className="footer">
       <div className="fLists">
         <ul className="fList">
@@ -44,8 +45,10 @@ const Footer = () => {
           <li className="fListItem">Terms & conditions</li>
         </ul>
       </div>
-      <div className="fText">Copyright © 2022 Rolit booking.</div>
+      
     </div>
+    <div className="fText"><center>Copyright © 2022 Destination.in .</center></div>
+    </>
   );
 };
 

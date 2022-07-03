@@ -82,11 +82,11 @@ import {
           {type !== "list" && (
             <>
               <h1 className="headerTitle">
-                A lifetime of discounts? It's Genius.
+                Find you perfect destination.
               </h1>
               <p className="headerDesc">
                 Get rewarded for your travels – unlock instant savings of 10% or
-                more with a free Lamabooking account
+                more with a free Destination.in account
               </p>
               {!user && (
                 <button className="headerBtn">Sign in / Register</button>

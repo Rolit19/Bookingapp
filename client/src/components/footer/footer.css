@@ -21,3 +21,9 @@
     color: #003580;
     cursor: pointer;
   }
+
+  .fText{
+    width: 100%;
+    color: white;
+    background: rgb(2,0,36);
+  }
