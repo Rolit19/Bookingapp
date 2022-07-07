@@ -5,7 +5,7 @@
     .datatableTitle{
       width: 100%;
       font-size: 24px;
-      color: gray;
+      color: blue;
       margin-bottom: 10px;
       display: flex;
       align-items: center;
@@ -13,7 +13,9 @@
   
       .link{
         text-decoration: none;
-        color: green;
+        color: white;
+        background: rgb(22,194,12);
+        background: linear-gradient(90deg, rgba(22,194,12,1) 36%, rgba(9,121,9,1) 100%, rgba(44,255,0,1) 100%);
         font-size: 16px;
         font-weight: 400;
         border: 1px solid green;

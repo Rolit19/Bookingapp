@@ -2,7 +2,9 @@
     flex: 1;
     border-right: 0.5px solid rgb(230, 227, 227);
     min-height: 100vh;
-    background-color: white;
+    background: rgb(20,7,166);
+    background: linear-gradient(90deg, rgba(20,7,166,1) 0%, rgba(0,9,170,1) 24%, rgba(0,9,170,1) 76%, rgba(20,7,166,1) 100%);
+    background-color: yellow;
   
     .top {
       height: 50px;
@@ -13,7 +15,7 @@
       .logo {
         font-size: 20px;
         font-weight: bold;
-        color: #6439ff;
+        color: white;
       }
     }
   
@@ -33,7 +35,7 @@
         .title {
           font-size: 10px;
           font-weight: bold;
-          color: #999;
+          color: white;
           margin-top: 15px;
           margin-bottom: 5px;
         }
@@ -45,18 +47,19 @@
           cursor: pointer;
   
           &:hover {
-            background-color: #ece8ff;
+            background: rgb(2,0,36);
+            background: linear-gradient(90deg, rgba(2,0,36,1) 36%, rgba(9,9,121,1) 100%, rgba(0,212,255,1) 100%);;
           }
   
           .icon {
             font-size: 18px;
-            color: #7451f8;
+            color: white;
           }
   
           span{
               font-size: 13px;
               font-weight: 600;
-              color: #888;
+              color: white;
               margin-left: 10px;
           }
         }

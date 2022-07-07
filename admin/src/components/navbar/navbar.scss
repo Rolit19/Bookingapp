@@ -2,6 +2,8 @@
     height: 50px;
     border-bottom: 0.5px solid rgb(231, 228, 228);
     display: flex;
+    background: rgb(2,0,36);
+    background: linear-gradient(90deg, rgba(2,0,36,1) 36%, rgba(9,9,121,1) 100%, rgba(0,212,255,1) 100%);
     align-items: center;
     font-size: 14px;
     color: #555;
@@ -17,6 +19,7 @@
         display: flex;
         align-items: center;
         border: 0.5px solid lightgray;
+        background-color: whitesmoke;
         padding: 3px;
   
         input {
@@ -39,9 +42,11 @@
           align-items: center;
           margin-right: 20px;
           position: relative;
+          color: white;
   
           .icon {
             font-size: 20px;
+            color: whitesmoke;
           }
   
           .avatar {
