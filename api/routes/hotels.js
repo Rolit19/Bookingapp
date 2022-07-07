@@ -7,7 +7,7 @@ import { createError } from "../utils/error.js";
 const router = express.Router();
 
 //CREATE
-router.post("/", verifyAdmin, createHotel);
+router.post("/", createHotel);
 //UPDATE
 router.put("/:id", verifyAdmin,updateHotel);
 //DELETE
