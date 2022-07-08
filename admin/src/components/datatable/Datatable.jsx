@@ -48,7 +48,7 @@ const Datatable = ({columns}) => {
   return (
     <div className="datatable" style={{ width: '90%' }}>
       <div className="datatableTitle">
-        Add new {path}
+        {path}
         <Link to={`/${path}/new`} className="link">
           Add New
         </Link>
