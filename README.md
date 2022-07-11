@@ -1,1 +1,1 @@
-# Bookingapp
+# EasyDestination
